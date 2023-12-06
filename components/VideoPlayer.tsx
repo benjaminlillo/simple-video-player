@@ -1,10 +1,9 @@
 "use client"
-import React, { useState, useRef, createRef, RefObject, MutableRefObject } from "react";
+import React, { useState, useRef, MutableRefObject } from "react";
 import { BaseReactPlayerProps } from 'react-player/base';
 import Image from 'next/image'
 import { FaPlay, FaPause, FaSquare, FaBackwardStep, FaForwardStep } from "react-icons/fa6";
-
-// const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
+import { AddView } from "@/utils/addView";
 import ReactPlayer from "react-player/lazy";
 
 interface VideoProps {
@@ -16,6 +15,7 @@ function Video({ videoRef, src } : VideoProps) {
   let [playing, setPlaying] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const [showControls, setShowControls] = useState(false);
+  const [viewAdded, setViewAdded] = useState(false);
   const handlePlay = () => {
     setPlaying(!playing);
   }
@@ -45,8 +45,18 @@ function Video({ videoRef, src } : VideoProps) {
       setShowControls(false);
     }
   }
+  const handleAddView = async (played: number) => {
+    if (videoRef && videoRef.current) {
+      if (played > 0.6 && !viewAdded) {
+        AddView().then(() => {
+          setViewAdded(true);
+        });
+      }
+    }
+  };
+
   return (
-    <div className="relative group h-auto w-auto mx-11/12 lg:mx-32 2xl:mx-96">
+    <div className="relative group h-auto w-auto sm:mx-0 md:mx-16 lg:mx-32 xl:mx-64 2xl:mx-96">
       <ReactPlayer
         ref={videoRef}
         url={src}
@@ -56,6 +66,9 @@ function Video({ videoRef, src } : VideoProps) {
         playing={playing}
         height={'auto'}
         width={'auto'}
+        onProgress={(progress) => {
+          handleAddView(progress.played);
+        }}
       />
       {/* {showControls ? ( */}
         <div className="absolute bottom-0 left-0 z-10 bg-gradient-to-t from-black w-full hidden group-hover:block">
