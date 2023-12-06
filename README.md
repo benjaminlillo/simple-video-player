@@ -11,6 +11,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Instalación local
 
+*Usar node 18 o superior*
+
 Para ejecutar la aplicación en un ambiente local:
 
 1. Instalar dependencias
