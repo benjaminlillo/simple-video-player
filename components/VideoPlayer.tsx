@@ -21,10 +21,10 @@ function Video({ videoRef, src } : VideoProps) {
   }
   const handleFastForward = () => {
     if (videoRef && videoRef.current) {
-      if (videoRef.current.getCurrentTime() + 5 <= videoRef.current.getDuration()) {
+      if (videoRef.current.getCurrentTime() + 5 < videoRef.current.getDuration()) {
         videoRef.current.seekTo(videoRef.current.getCurrentTime() + 5);
       } else {
-        videoRef.current.seekTo(videoRef.current.getDuration());
+        videoRef.current.seekTo(videoRef.current.getDuration() - 1);
       }
     }
   }
