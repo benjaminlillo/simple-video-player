@@ -3,7 +3,7 @@ import React, { useState, useRef, MutableRefObject } from "react";
 import { BaseReactPlayerProps } from 'react-player/base';
 import Image from 'next/image'
 import { FaPlay, FaPause, FaSquare, FaBackwardStep, FaForwardStep } from "react-icons/fa6";
-import { AddView } from "@/utils/addView";
+import { addView } from "@/utils/viewsUtilities";
 import ReactPlayer from "react-player/lazy";
 
 interface VideoProps {
@@ -48,7 +48,7 @@ function Video({ videoRef, src } : VideoProps) {
   const handleAddView = async (played: number) => {
     if (videoRef && videoRef.current) {
       if (played > 0.6 && !viewAdded) {
-        AddView().then(() => {
+        addView().then(() => {
           setViewAdded(true);
         });
       }
@@ -69,6 +69,7 @@ function Video({ videoRef, src } : VideoProps) {
         onProgress={(progress) => {
           handleAddView(progress.played);
         }}
+        fallback={<div>Cargando...</div>}
       />
       {/* {showControls ? ( */}
         <div className="absolute bottom-0 left-0 z-10 bg-gradient-to-t from-black w-full hidden group-hover:block">

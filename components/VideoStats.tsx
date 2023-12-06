@@ -1,7 +1,17 @@
+"use client"
 import Image from 'next/image'
-import prisma from '@/lib/prisma'
+import { useState, useEffect } from "react";
+import { getViewsCount } from '@/utils/viewsUtilities';
 
-export default function VideoStats({ views }: { views: number }) {
+export default function VideoStats() {
+  const [views, setViews] = useState(0);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    getViewsCount().then((views) => {
+      setViews(views);
+      setLoading(false);
+    });
+  }, []);
   return (
     <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-3 lg:text-left">
       <div
@@ -10,9 +20,13 @@ export default function VideoStats({ views }: { views: number }) {
         <h2 className={`mb-3 text-2xl font-semibold`}>
           Visualizaciones
         </h2>
-        <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-          {views}
-        </p>
+        <div className={`m-0 max-w-[30ch] text-sm opacity-50`}>
+          {loading ? (
+            <div>Cargando...</div>
+          ) : (
+            views
+          )}
+        </div>
       </div>
 
       <a
