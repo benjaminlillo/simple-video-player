@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useRef, createRef } from "react";
+import React, { useState, useRef, createRef, RefObject, MutableRefObject } from "react";
 import { BaseReactPlayerProps } from 'react-player/base';
 import Image from 'next/image'
 import { FaPlay, FaPause, FaSquare, FaBackwardStep, FaForwardStep } from "react-icons/fa6";
@@ -8,9 +8,8 @@ import { FaPlay, FaPause, FaSquare, FaBackwardStep, FaForwardStep } from "react-
 import ReactPlayer from "react-player/lazy";
 
 interface VideoProps {
-  playerRef: React.LegacyRef<ReactPlayer> | undefined;
+  videoRef: MutableRefObject<ReactPlayer | null> | null;
   src: string;
-  playing: boolean;
 }
 
 function Video({ videoRef, src } : VideoProps) {
@@ -21,17 +20,17 @@ function Video({ videoRef, src } : VideoProps) {
     setPlaying(!playing);
   }
   const handleFastForward = () => {
-    if (videoRef.current) {
+    if (videoRef && videoRef.current) {
       videoRef.current.seekTo(videoRef.current.getCurrentTime() + 5);
     }
   }
   const handleRewind = () => {
-    if (videoRef.current) {
+    if (videoRef && videoRef.current) {
       videoRef.current.seekTo(videoRef.current.getCurrentTime() - 5);
     }
   }
   const handleStop = () => {
-    if (videoRef.current) {
+    if (videoRef && videoRef.current) {
       videoRef.current.seekTo(0);
       setPlaying(false);
     }
@@ -81,7 +80,7 @@ function Video({ videoRef, src } : VideoProps) {
 }
 
 export default function VideoPlayer() {
-  const videoRef = useRef<BaseReactPlayerProps | null>(null);
+  const videoRef = useRef<ReactPlayer | null>(null);
   let videosrc = "/forest.mp4";
   return (
     <div>
