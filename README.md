@@ -9,6 +9,11 @@ Librerías:
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Consideraciones
+- La página tiene light y dark mode implementados, que se aplican según la configuración del computador o browser.
+- Para mostrar los controles de reproducción, se debe pasar el mouse por encima del video
+- El contador de visualizaciones se actualiza cuando se cumple el requisito de visualizar 60% o más del video (unos 15 segundos) y se debe recargar la página para ver el cambio en el contador de visualizaciones. Lo hice de esta forma para que sea similar a lo que sucede en Youtube.
+
 ## Instalación local
 
 *Usar node 18 o superior*
