@@ -21,12 +21,20 @@ function Video({ videoRef, src } : VideoProps) {
   }
   const handleFastForward = () => {
     if (videoRef && videoRef.current) {
-      videoRef.current.seekTo(videoRef.current.getCurrentTime() + 5);
+      if (videoRef.current.getCurrentTime() + 5 <= videoRef.current.getDuration()) {
+        videoRef.current.seekTo(videoRef.current.getCurrentTime() + 5);
+      } else {
+        videoRef.current.seekTo(videoRef.current.getDuration());
+      }
     }
   }
   const handleRewind = () => {
     if (videoRef && videoRef.current) {
-      videoRef.current.seekTo(videoRef.current.getCurrentTime() - 5);
+      if (videoRef.current.getCurrentTime() - 5 >= 0) {
+        videoRef.current.seekTo(videoRef.current.getCurrentTime() - 5);
+      } else {
+        videoRef.current.seekTo(0);
+      }
     }
   }
   const handleStop = () => {
