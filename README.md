@@ -1,7 +1,7 @@
 # Simple video player app
 Deploy en [Vercel](https://simple-video-player-benjamin-lillos-projects.vercel.app/)
 
-Tecnologías utilizadas: Next.js (React), Prisma, Tailwind CSS
+Tecnologías utilizadas: Next.js (React), Tailwind CSS, Prisma, PostgreSQL
 
 Librerías:
 - [react-player](https://www.npmjs.com/package/react-player)
@@ -9,7 +9,7 @@ Librerías:
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Instalación local
 
 Para ejecutar la aplicación en un ambiente local:
 
@@ -28,8 +28,10 @@ POSTGRES_USER=<usuario postgres>
 ```
 
 3. Crear una base de datos postgres con el nombre definido en el paso anterior
+```bash
+createdb <nombre db>
+```
 
-  
 4. Correr migraciones
 ```bash
 npx prisma migrate dev
